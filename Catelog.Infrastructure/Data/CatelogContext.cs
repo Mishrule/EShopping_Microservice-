@@ -9,7 +9,7 @@ using MongoDB.Driver;
 
 namespace Catelog.Infrastructure.Data
 {
-	public class CatelogContext: ICatalogContext
+	public class CatelogContext: ICatelogContext
 	{
 		public IMongoCollection<Product> Products { get; }
 		public IMongoCollection<ProductBrand> Brands { get; }

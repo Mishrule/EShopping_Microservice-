@@ -11,7 +11,7 @@ using MediatR;
 
 namespace Catelog.Application.Handlers
 {
-	public class GetAllProductHandler:IRequestHandler<GetAllProductQuery, IList<ProductResponse>>
+	public class GetAllProductHandler:IRequestHandler<GetAllProductsQuery, IList<ProductResponse>>
 	{
 		private readonly IProductRepository _productRepository;
 
@@ -19,7 +19,7 @@ namespace Catelog.Application.Handlers
 		{
 			_productRepository = productRepository;
 		}
-		public async Task<IList<ProductResponse>> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
+		public async Task<IList<ProductResponse>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
 		{
 			var productList = await _productRepository.GetProducts();
 			var productResponseList = ProductMapper.Mapper.Map<IList<ProductResponse>>(productList);

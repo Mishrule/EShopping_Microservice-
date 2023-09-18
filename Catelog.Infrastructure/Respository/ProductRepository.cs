@@ -13,9 +13,9 @@ namespace Catelog.Infrastructure.Respository
 {
 	public class ProductRepository : IProductRepository, IBrandRepository, ITypesRepository
 	{
-		private readonly ICatalogContext _context;
+		private readonly ICatelogContext _context;
 
-		public ProductRepository(ICatalogContext context)
+		public ProductRepository(ICatelogContext context)
 		{
 			_context = context;
 		}
