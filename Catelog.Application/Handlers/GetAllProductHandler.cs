@@ -7,11 +7,12 @@ using Catelog.Application.Mappers;
 using Catelog.Application.Queries;
 using Catelog.Application.Responses;
 using Catelog.Core.Repositories;
+using Catelog.Core.Specs;
 using MediatR;
 
 namespace Catelog.Application.Handlers
 {
-	public class GetAllProductHandler:IRequestHandler<GetAllProductsQuery, IList<ProductResponse>>
+	public class GetAllProductHandler:IRequestHandler<GetAllProductsQuery, Pagination<ProductResponse>>
 	{
 		private readonly IProductRepository _productRepository;
 
@@ -19,10 +20,10 @@ namespace Catelog.Application.Handlers
 		{
 			_productRepository = productRepository;
 		}
-		public async Task<IList<ProductResponse>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
+		public async Task<Pagination<ProductResponse>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
 		{
-			var productList = await _productRepository.GetProducts();
-			var productResponseList = ProductMapper.Mapper.Map<IList<ProductResponse>>(productList);
+			var productList = await _productRepository.GetProducts(request.CatelogSpecParams);
+			var productResponseList = ProductMapper.Mapper.Map<Pagination<ProductResponse>>(productList);
 			return productResponseList;
 		}
 	}

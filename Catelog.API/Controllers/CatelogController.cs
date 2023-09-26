@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using MediatR;
 using Catelog.Application.Commands;
+using Catelog.Core.Specs;
 
 namespace Catelog.API.Controllers
 {
@@ -37,12 +38,12 @@ namespace Catelog.API.Controllers
 
 		[HttpGet]
 		[Route("GetAllProducts")]
-		[ProducesResponseType(typeof(IList<ProductResponse>), (int)HttpStatusCode.OK)]
-		public async Task<ActionResult<IList<ProductResponse>>> GetAllProducts()
+		[ProducesResponseType(typeof(Pagination<ProductResponse>), (int)HttpStatusCode.OK)]
+		public async Task<ActionResult<Pagination<ProductResponse>>> GetAllProducts([FromQuery]CatelogSpecParams catelogSpecParams)
 		{
 			try
 			{
-				var query = new GetAllProductsQuery();
+				var query = new GetAllProductsQuery(catelogSpecParams);
 				var result = await _mediator.Send(query);
 				return Ok(result);
 			}

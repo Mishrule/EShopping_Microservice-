@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Catelog.Core.Entities;
 using Catelog.Core.Repositories;
+using Catelog.Core.Specs;
 using Catelog.Infrastructure.Data;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -19,6 +20,90 @@ namespace Catelog.Infrastructure.Respository
 		{
 			_context = context;
 		}
+
+		public async Task<Pagination<Product>> GetProducts(CatelogSpecParams catalogSpecParams)
+		{
+			var builder = Builders<Product>.Filter;
+			var filter = builder.Empty;
+			if (!string.IsNullOrEmpty(catalogSpecParams.Search))
+			{
+				var searchFilter = builder.Regex(x => x.Name, new BsonRegularExpression(catalogSpecParams.Search));
+				filter &= searchFilter;
+			}
+			if (!string.IsNullOrEmpty(catalogSpecParams.BrandId))
+			{
+				var searchFilter = builder.Eq(x => x.Brands.Id, catalogSpecParams.BrandId);
+				filter &= searchFilter;
+			}
+			if (!string.IsNullOrEmpty(catalogSpecParams.TypeId))
+			{
+				var searchFilter = builder.Eq(x => x.Types.Id, catalogSpecParams.TypeId);
+				filter &= searchFilter;
+			}
+
+			if (!string.IsNullOrEmpty(catalogSpecParams.Sort))
+			{
+				return new Pagination<Product>
+				{
+					PageSize = catalogSpecParams.PageSize,
+					PageIndex = catalogSpecParams.PageIndex,
+					Data = await DataFilter(catalogSpecParams, filter),
+					Count = await _context.Products.CountDocumentsAsync(p =>
+						true) //TODO: Need to check while applying with UI
+				};
+			}
+
+
+			return new Pagination<Product>()
+			{
+				PageSize = catalogSpecParams.PageSize,
+				PageIndex = catalogSpecParams.PageIndex,
+				Data = await _context
+					.Products
+					.Find(filter)
+					.Sort(Builders<Product>.Sort.Ascending("Name"))
+					.Skip(catalogSpecParams.PageSize * (catalogSpecParams.PageIndex - 1))
+					.Limit(catalogSpecParams.PageSize)
+					.ToListAsync(),
+				Count = await _context.Products.CountDocumentsAsync(p => true)
+			};
+
+			
+		}
+
+		private async Task<IReadOnlyList<Product>> DataFilter(CatelogSpecParams catalogSpecParams, FilterDefinition<Product> filter)
+		{
+			switch (catalogSpecParams.Sort)
+			{
+				case "priceAsc":
+					return await _context
+						.Products
+						.Find(filter)
+						.Sort(Builders<Product>.Sort.Ascending("Price"))
+						.Skip(catalogSpecParams.PageSize * (catalogSpecParams.PageIndex - 1))
+						.Limit(catalogSpecParams.PageSize)
+						.ToListAsync();
+				case "priceDesc":
+					return await _context
+						.Products
+						.Find(filter)
+						.Sort(Builders<Product>.Sort.Descending("Price"))
+						.Skip(catalogSpecParams.PageSize * (catalogSpecParams.PageIndex - 1))
+						.Limit(catalogSpecParams.PageSize)
+						.ToListAsync();
+				default:
+					return await _context
+						.Products
+						.Find(filter)
+						.Sort(Builders<Product>.Sort.Ascending("Name"))
+						.Skip(catalogSpecParams.PageSize * (catalogSpecParams.PageIndex - 1))
+						.Limit(catalogSpecParams.PageSize)
+						.ToListAsync();
+			}
+		}
+
+
+
 
 		public async Task<IEnumerable<Product>> GetProducts()
 		{

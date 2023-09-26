@@ -35,6 +35,8 @@ namespace Catelog.API
             //DI
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(CreateProductHandler).GetTypeInfo().Assembly);
+            //services.AddMediatR(typeof(CreateProductHandler).GetTypeInfo().Assembly);
+
             services.AddScoped<ICatelogContext, CatelogContext>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBrandRepository, ProductRepository>();

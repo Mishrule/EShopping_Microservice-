@@ -7,13 +7,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catelog", "Catelog", "{4F953ED0-2078-4931-AE4C-1A64F03C6E0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catelog.API", "Catelog.API\Catelog.API.csproj", "{FDF37BFA-3D3B-49A7-B2BE-14AB9A1EDC7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catelog.API", "Catelog.API\Catelog.API.csproj", "{FDF37BFA-3D3B-49A7-B2BE-14AB9A1EDC7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catelog.Core", "Catelog.Core\Catelog.Core.csproj", "{EED37DEE-3015-46E6-917E-C9B35C356FDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catelog.Core", "Catelog.Core\Catelog.Core.csproj", "{EED37DEE-3015-46E6-917E-C9B35C356FDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catelog.Application", "Catelog.Application\Catelog.Application.csproj", "{F92BF704-46D8-4000-8E63-299088EDB788}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catelog.Application", "Catelog.Application\Catelog.Application.csproj", "{F92BF704-46D8-4000-8E63-299088EDB788}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catelog.Infrastructure", "Catelog.Infrastructure\Catelog.Infrastructure.csproj", "{05B34313-8B5B-4C0F-AE72-F6756F42785C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catelog.Infrastructure", "Catelog.Infrastructure\Catelog.Infrastructure.csproj", "{05B34313-8B5B-4C0F-AE72-F6756F42785C}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2B8D249A-DDBA-4781-9B35-71B5B26CE00D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{05B34313-8B5B-4C0F-AE72-F6756F42785C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05B34313-8B5B-4C0F-AE72-F6756F42785C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05B34313-8B5B-4C0F-AE72-F6756F42785C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B8D249A-DDBA-4781-9B35-71B5B26CE00D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B8D249A-DDBA-4781-9B35-71B5B26CE00D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B8D249A-DDBA-4781-9B35-71B5B26CE00D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B8D249A-DDBA-4781-9B35-71B5B26CE00D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

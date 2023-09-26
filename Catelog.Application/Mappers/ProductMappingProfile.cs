@@ -7,6 +7,7 @@ using AutoMapper;
 using Catelog.Application.Commands;
 using Catelog.Application.Responses;
 using Catelog.Core.Entities;
+using Catelog.Core.Specs;
 
 namespace Catelog.Application.Mappers
 {
@@ -18,7 +19,7 @@ namespace Catelog.Application.Mappers
 			CreateMap<Product, CreateProductCommand>().ReverseMap();
 			CreateMap<ProductBrand, BrandResponse>().ReverseMap();
 			CreateMap<ProductType, TypesResponse>().ReverseMap();
-
+			CreateMap<Pagination<Product>, Pagination<ProductResponse>>();
 		}
 	}
 }
